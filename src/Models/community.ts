@@ -5,7 +5,7 @@ const CommunitySchema = new mongoose.Schema({
     email: { type:  String, required: true, unique: true }
 });
 
-export const CommunityModel = mongoose.model('event', CommunitySchema);
+export const CommunityModel = mongoose.model('community', CommunitySchema);
 
 export const getInterest = () => CommunityModel.find();
 export const getInterestsByEmail = (email: string) => CommunityModel.findOne({ email })

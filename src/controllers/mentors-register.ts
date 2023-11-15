@@ -50,7 +50,7 @@ export const updateMentorsRole = async (req: express.Request, res: express.Respo
         mentorship.date_of_birth = date_of_birth,
         mentorship.preferred_time_zone = preferred_time_zone,
         mentorship.linkedin = linkedin, mentorship.programs = programs || [], mentorship.skillset = skillset || [], mentorship.yearsOfExperience = yearsOfExperience;
-        mentorship.leadershipLevel = leadershipLevel, mentorship.mentorsYearsOfExperience = mentorsYearsOfExperience,
+        mentorship.leadershipLevel = leadershipLevel, mentorship.mentorsyearsOfExperience = mentorsYearsOfExperience,
         mentorship.mentees_number = mentees_number, mentorship.mentee_expectation = mentee_expectation, mentorship.other_info = other_info;
 
         await mentorship.save()

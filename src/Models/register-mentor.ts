@@ -19,7 +19,7 @@ const MentorSchema = new mongoose.Schema({
     other_info:  { type: String, required: true},
 });
 
-export const MentorModel = mongoose.model('event', MentorSchema);
+export const MentorModel = mongoose.model('mentor', MentorSchema);
 
 export const getMentors = () => MentorModel.find();
 export const getMentorById = (id: string) => MentorModel.findById(id);
