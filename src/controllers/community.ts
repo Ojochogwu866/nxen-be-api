@@ -2,6 +2,9 @@ import express from 'express'
 
 import { createInterest, getInterest, getInterestsByEmail } from '../Models/community';
 
+
+//get all interested candidates 
+
 export const getAllCandidates = async (req: express.Request, res: express.Response) => {
     try {
         const interests = await getInterest();
@@ -11,6 +14,9 @@ export const getAllCandidates = async (req: express.Request, res: express.Respon
     return res.sendStatus(400);
     }
 }
+
+
+// register new interest 
 
 export const newInterest = async (req: express.Request, res: express.Response) => {
 
