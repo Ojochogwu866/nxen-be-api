@@ -32,6 +32,7 @@
     "http": "^0.0.1-security",
     "lodash": "^4.17.21",
     "mongodb": "^6.2.0",
-    "mongoose": "^8.0.0"
+    "mongoose": "^8.0.0",
+    "yaml": "^2.3.4"
   }
 }
