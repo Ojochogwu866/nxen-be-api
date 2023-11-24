@@ -38,19 +38,15 @@ export const updateMentorsRole = async (req: express.Request, res: express.Respo
     try {
         const { id } = req.params;
         const {   firstname, lastname, email, phone_number, country_of_residence, date_of_birth, preferred_time_zone, linkedin, programs, skillset, yearsOfExperience, 
-                leadershipLevel, mentorsYearsOfExperience, mentees_number, mentee_expectation, other_info  } = req.body;
+                leadershipLevel, mentorsyearsOfExperience, mentees_number, mentee_expectation, other_info  } = req.body;
 
         const mentorship = await getMentorById(id);
 
-        mentorship.firstname = firstname,
-        mentorship.lastname = lastname,
-        mentorship.email = email,
-        mentorship.phone_number = phone_number,
-        mentorship.country_of_residence = country_of_residence,
-        mentorship.date_of_birth = date_of_birth,
-        mentorship.preferred_time_zone = preferred_time_zone,
+        mentorship.firstname = firstname, mentorship.lastname = lastname, mentorship.email = email,
+        mentorship.phone_number = phone_number, mentorship.country_of_residence = country_of_residence,
+        mentorship.date_of_birth = date_of_birth, mentorship.preferred_time_zone = preferred_time_zone,
         mentorship.linkedin = linkedin, mentorship.programs = programs || [], mentorship.skillset = skillset || [], mentorship.yearsOfExperience = yearsOfExperience;
-        mentorship.leadershipLevel = leadershipLevel, mentorship.mentorsyearsOfExperience = mentorsYearsOfExperience,
+        mentorship.leadershipLevel = leadershipLevel, mentorship.mentorsyearsOfExperience = mentorsyearsOfExperience,
         mentorship.mentees_number = mentees_number, mentorship.mentee_expectation = mentee_expectation, mentorship.other_info = other_info;
 
         await mentorship.save()
