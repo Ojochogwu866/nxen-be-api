@@ -22,10 +22,9 @@ const server = http.createServer(app)
     server.listen(8080, () => {console.log("server running on http://localhost:8080")
 })
 
-const MONGO_URL = 'mongodb+srv://ojochogwu:9mxoiJMC5YKJjMAX@cluster0.wikmj6k.mongodb.net/nextgen?retryWrites=true&w=majority';
 
 mongoose.Promise = Promise;
-mongoose.connect(MONGO_URL);
+mongoose.connect(process.env.MONGO_URL);
 mongoose.connection.on('error', (error: Error) => console.log(error));
 
 app.use('/', router());
