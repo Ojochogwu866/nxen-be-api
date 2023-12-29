@@ -2,9 +2,7 @@ import express from 'express';
 import { getUserByEmail, createUser } from '../Models/user';
 import { random, authentication } from '../helpers';
 
-
 //login as admin
-
 export const login = async(req: express.Request, res: express.Response) => {
     try {
         const { email, password } = req.body;
@@ -13,7 +11,6 @@ export const login = async(req: express.Request, res: express.Response) => {
             return res.sendStatus(400)
         }
     const user = await getUserByEmail(email).select('+authentication.salt +authentication.password');
-
     if (!user){
         return res.sendStatus(400)
     }
@@ -37,7 +34,6 @@ export const login = async(req: express.Request, res: express.Response) => {
 }
 
 //register as admin
-
 export const register = async (req: express.Request, res: express.Response ) => {
     try {
         const { username, email, password} = req.body;

@@ -4,7 +4,7 @@ import { getAllMentors, newMentor, deleteMentorsRole, updateMentorsRole  } from 
 import { isAuthenticated } from '../middlewares';
 
 export default (router: express.Router) => {
-    router.post('/mentorship/', newMentor);
+    router.post('/mentorship', newMentor);
     router.get('/mentorship', isAuthenticated,  getAllMentors);
     router.delete('/mentorship/:id', isAuthenticated,  deleteMentorsRole);
     router.patch('/mentorship/:id', isAuthenticated,  updateMentorsRole);

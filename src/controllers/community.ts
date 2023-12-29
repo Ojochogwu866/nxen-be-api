@@ -4,7 +4,6 @@ import { createInterest, getInterest, getInterestsByEmail } from '../Models/comm
 
 
 //get all interested candidates 
-
 export const getAllCandidates = async (req: express.Request, res: express.Response) => {
     try {
         const interests = await getInterest();
@@ -17,7 +16,6 @@ export const getAllCandidates = async (req: express.Request, res: express.Respon
 
 
 // register new interest 
-
 export const newInterest = async (req: express.Request, res: express.Response) => {
 
         try {

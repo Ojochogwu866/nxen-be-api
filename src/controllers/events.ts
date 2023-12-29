@@ -68,7 +68,6 @@ export const deleteEvent = async (req: express.Request, res: express.Response) =
 }
 
 // Register for an event
-
 export const registerForEvent = async (req: express.Request, res: express.Response) => {
 
   try {
@@ -93,7 +92,6 @@ export const registerForEvent = async (req: express.Request, res: express.Respon
 
 
 //get all registered attendees for an event
-
 export const getAllRegisteredUsers = async (req: express.Request, res: express.Response) => {
 
     try {
