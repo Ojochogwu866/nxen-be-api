@@ -1,12 +1,12 @@
 openapi: 3.0.0
 info:
   description: |
-    API for Community, Attendees, Events, and Users.
+    NEXTGEN API for Community, Attendees, Events, and Users.
   version: "1.0.0"
-  title: Community API
+  title: NextGen API
   termsOfService: 'http://example.com/terms/'
   contact:
-    email: contact@example.com
+    email: help@nextgenhub.com
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
@@ -18,7 +18,7 @@ tags:
   - name: community
     description: Community endpoints
   - name: events
-    description: Events endpoints
+    description: Event endpoints
   - name: mentorship
     description: Mentorship endpoints
   - name: users
@@ -93,45 +93,7 @@ paths:
         '401':
           description: Unauthorized
 
-      EventSchema:
-      type: object
-      properties:
-        title:
-          type: string
-          required: true
-        stack:
-          type: string
-          required: true
-        event:
-          type: string
-          required: true
-        location:
-          type: string
-          required: true
-        date:
-          type: string
-          required: true
-        platform:
-          type: string
-          required: true
-        registration:
-          type: array
-          items:
-            $ref: '#/components/schemas/AttendeesSchema'
-
-    EventRegistrationSchema:
-      type: object
-      properties:
-        userId:
-          type: string
-          required: true
-        registrationDate:
-          type: string
-          format: date-time
-          default: null
-
-paths:
-  /events/new-event:
+  '/events/new-event':
     post:
       tags:
         - events
@@ -143,14 +105,22 @@ paths:
             schema:
               $ref: '#/components/schemas/EventSchema'
       responses:
-        '201':
-          description: Event created successfully
+        '200':
+          description: Successful event creation
         '400':
           description: Invalid input
+    get:
+      tags:
+        - events
+      summary: Get all events
+      operationId: getAllEvents
+      responses:
+        '200':
+          description: Successful operation
         '401':
           description: Unauthorized
 
-  /events/{id}/register:
+  '/events/{id}/register':
     post:
       tags:
         - events
@@ -164,14 +134,76 @@ paths:
           schema:
             type: string
             format: uuid
+      responses:
+        '200':
+          description: Successful registration
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthorized
+
+  '/events/{id}/registered-users':
+    get:
+      tags:
+        - events
+      summary: Get all registered users for an event
+      operationId: getAllRegisteredUsers
+      parameters:
+        - name: id
+          in: path
+          description: Event ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful operation
+        '401':
+          description: Unauthorized
+
+  '/events/{id}/delete':
+    delete:
+      tags:
+        - events
+      summary: Delete an event
+      operationId: deleteEvent
+      parameters:
+        - name: id
+          in: path
+          description: Event ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful deletion
+        '401':
+          description: Unauthorized
+
+  '/events/{id}/update':
+    patch:
+      tags:
+        - events
+      summary: Update an event
+      operationId: updateEvent
+      parameters:
+        - name: id
+          in: path
+          description: Event ID
+          required: true
+          schema:
+            type: string
+            format: uuid
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EventRegistrationSchema'
+              $ref: '#/components/schemas/EventSchema'
       responses:
-        '201':
-          description: User registered for the event
+        '200':
+          description: Successful update
         '400':
           description: Invalid input
         '401':
