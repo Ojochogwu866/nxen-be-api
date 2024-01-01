@@ -18,10 +18,10 @@ export const getAllMentors = async (req: express.Request, res: express.Response)
 export const newMentor = async (req: express.Request, res: express.Response) => {
 
         try {
-            const {   firstname, lastname, phone_number, email, country_of_residence, date_of_birth, preferred_time_zone, linkedin, programs: [], skillset:[], yearsOfExperience, 
+            const {   firstname, lastname, phone_number, email, country_of_residence, date_of_birth, preferred_time_zone, linkedin, programs, skillset, yearsOfExperience, 
                 leadershipLevel, mentorsyearsOfExperience, mentees_number, mentee_expectation, other_info, experienceDescription  } = req.body;
             const newMentor = await createMentorRole({
-                firstname, lastname, email, phone_number, country_of_residence, date_of_birth, preferred_time_zone, linkedin, programs: [], skillset:[], yearsOfExperience, 
+                firstname, lastname, email, phone_number, country_of_residence, date_of_birth, preferred_time_zone, linkedin, programs, skillset, yearsOfExperience, 
                 leadershipLevel, mentorsyearsOfExperience, mentees_number, mentee_expectation, other_info , experienceDescription
         });
         return res.status(201).json(newMentor);

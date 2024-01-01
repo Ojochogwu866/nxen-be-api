@@ -1,0 +1,403 @@
+openapi: 3.0.0
+info:
+  description: |
+    API for Community, Attendees, Events, and Users.
+  version: "1.0.0"
+  title: Community API
+  termsOfService: 'http://example.com/terms/'
+  contact:
+    email: contact@example.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+servers:
+  - url: '/api/v1'
+tags:
+  - name: auth
+    description: Authentication endpoints
+  - name: community
+    description: Community endpoints
+  - name: events
+    description: Events endpoints
+  - name: mentorship
+    description: Mentorship endpoints
+  - name: users
+    description: User endpoints
+
+paths:
+  '/auth/register':
+    post:
+      tags:
+        - auth
+      summary: Register a new user
+      operationId: register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSchema'
+      responses:
+        '200':
+          description: Successful registration
+        '400':
+          description: Invalid input
+
+  '/auth/login':
+    post:
+      tags:
+        - auth
+      summary: Log in a user
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+              required:
+                - username
+                - password
+      responses:
+        '200':
+          description: Successful login
+        '401':
+          description: Invalid credentials
+
+  '/community':
+    post:
+      tags:
+        - community
+      summary: Create a new interest in the community
+      operationId: newInterest
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommunitySchema'
+      responses:
+        '200':
+          description: Successful interest creation
+        '400':
+          description: Invalid input
+    get:
+      tags:
+        - community
+      summary: Get all candidates interested in the community
+      operationId: getAllCandidates
+      responses:
+        '200':
+          description: Successful operation
+        '401':
+          description: Unauthorized
+
+      EventSchema:
+      type: object
+      properties:
+        title:
+          type: string
+          required: true
+        stack:
+          type: string
+          required: true
+        event:
+          type: string
+          required: true
+        location:
+          type: string
+          required: true
+        date:
+          type: string
+          required: true
+        platform:
+          type: string
+          required: true
+        registration:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttendeesSchema'
+
+    EventRegistrationSchema:
+      type: object
+      properties:
+        userId:
+          type: string
+          required: true
+        registrationDate:
+          type: string
+          format: date-time
+          default: null
+
+paths:
+  /events/new-event:
+    post:
+      tags:
+        - events
+      summary: Create a new event
+      operationId: newEvent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventSchema'
+      responses:
+        '201':
+          description: Event created successfully
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthorized
+
+  /events/{id}/register:
+    post:
+      tags:
+        - events
+      summary: Register for an event
+      operationId: registerForEvent
+      parameters:
+        - name: id
+          in: path
+          description: Event ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventRegistrationSchema'
+      responses:
+        '201':
+          description: User registered for the event
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthorized
+
+  '/mentorship':
+    post:
+      tags:
+        - mentorship
+      summary: Create a new mentorship role
+      operationId: newMentor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MentorshipSchema'
+      responses:
+        '200':
+          description: Successful mentorship role creation
+        '400':
+          description: Invalid input
+    get:
+      tags:
+        - mentorship
+      summary: Get all mentors
+      operationId: getAllMentors
+      responses:
+        '200':
+          description: Successful operation
+        '401':
+          description: Unauthorized
+
+  '/mentorship/{id}':
+    delete:
+      tags:
+        - mentorship
+      summary: Delete a mentorship role
+      operationId: deleteMentorsRole
+      parameters:
+        - name: id
+          in: path
+          description: Mentorship Role ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful deletion
+        '401':
+          description: Unauthorized
+
+    patch:
+      tags:
+        - mentorship
+      summary: Update a mentorship role
+      operationId: updateMentorsRole
+      parameters:
+        - name: id
+          in: path
+          description: Mentorship Role ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MentorshipSchema'
+      responses:
+        '200':
+          description: Successful update
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthorized
+
+  '/users':
+    get:
+      tags:
+        - users
+      summary: Get all users (admin)
+      operationId: getAllUsers
+      responses:
+        '200':
+          description: Successful operation
+        '401':
+          description: Unauthorized
+
+  '/users/{id}':
+    delete:
+      tags:
+        - users
+      summary: Delete a user (admin)
+      operationId: deleteUser
+      parameters:
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful deletion
+        '401':
+          description: Unauthorized
+
+    patch:
+      tags:
+        - users
+      summary: Update a user (admin)
+      operationId: updateUser
+      parameters:
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateSchema'
+      responses:
+        '200':
+          description: Successful update
+        '400':
+          description: Invalid input
+        '401':
+          description: Unauthorized
+
+components:
+  schemas:
+    UserSchema:
+      type: object
+      properties:
+        username:
+          type: string
+          required: true
+        email:
+          type: string
+          required: true
+        authentication:
+          type: object
+          properties:
+            password:
+              type: string
+              required: true
+            salt:
+              type: string
+            sessionToken:
+              type: string
+
+    UserUpdateSchema:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        authentication:
+          type: object
+          properties:
+            password:
+              type: string
+            salt:
+              type: string
+            sessionToken:
+              type: string
+
+    CommunitySchema:
+      type: object
+      properties:
+        options:
+          type: array
+          items:
+            type: string
+          required: true
+        email:
+          type: string
+          required: true
+          unique: true
+
+    AttendeesSchema:
+      type: object
+      properties:
+        firstname:
+          type: string
+          required: true
+        lastname:
+          type: string
+          required: true
+        email:
+          type: string
+          required: true
+        phone_number:
+          type: string
+          required: true
+
+    EventSchema:
+      type: object
+      properties:
+        title:
+          type: string
+          required: true
+        stack:
+          type: string
+          required: true
+        event:
+          type: string
+          required: true
+        location:
+          type: string
+          required: true
+        date:
+          type: string
+          required: true
+        platform:
+          type: string
+          required: true
+        registration:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttendeesSchema'

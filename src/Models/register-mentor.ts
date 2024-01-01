@@ -9,7 +9,7 @@ const MentorSchema = new mongoose.Schema({
     country_of_residence:{ type: String, required: true},
     preferred_time_zone:{ type: String, required: true},
     linkedin: { type: String, required: true},
-    programs: { type: [String], required: true},
+    programs: { type: String, required: true},
     yearsOfExperience:{ type: String, required: true},
     leadershipLevel:{ type: String, required: true},
     experienceDescription:{ type: String, required: true},
