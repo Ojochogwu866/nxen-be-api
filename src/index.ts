@@ -58,8 +58,8 @@ app.use('/api/v1', router());
 
 // Define a route for the root path
 app.get("/api/v1", (req, res) => {
-  res.send('<h1>You read API</h1><a href="/api-docs">Documentation</a>');
+  res.send('<h1>You read API</h1><a href="/api/v1/api-docs">Documentation</a>');
 });
 
 // Set up Swagger documentation route
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+app.use("/api/v1/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
