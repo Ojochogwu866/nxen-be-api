@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+// Define the schema for mentors
+
 const MentorSchema = new mongoose.Schema({
     firstname: { type: String, required: true },
     lastname: { type: String, required:  true},
@@ -20,8 +22,9 @@ const MentorSchema = new mongoose.Schema({
     other_info:  { type: String, required: true},
 });
 
-export const MentorModel = mongoose.model('mentor', MentorSchema);
+// Functions to interact with the mentors collection
 
+export const MentorModel = mongoose.model('mentor', MentorSchema);
 export const getMentors = () => MentorModel.find();
 export const getMentorById = (id: string) => MentorModel.findById(id);
 export const createMentorRole = (values: Record<string, any>) => new MentorModel(values).save().then((mentor) => mentor.toObject());

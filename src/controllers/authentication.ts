@@ -2,6 +2,7 @@ import express from 'express';
 import { getUserByEmail, createUser } from '../Models/user';
 import { random, authentication } from '../helpers';
 
+
 //login as admin
 export const login = async(req: express.Request, res: express.Response) => {
     try {
