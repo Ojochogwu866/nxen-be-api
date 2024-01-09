@@ -12,6 +12,17 @@ export const getAllEvents = async (req: express.Request, res: express.Response) 
     }
 }
 
+export const getEvent = async (req: express.Request, res: express.Response) => {
+    try {
+    const { id } = req.params;
+    const events = await getEventById(id);
+    return res.status(200).json(events);
+    } catch (error) {
+        console.error(error);
+    return res.sendStatus(400);
+    }
+}
+
 export const newEvent = async (req: express.Request, res: express.Response) => {
 
         try {
